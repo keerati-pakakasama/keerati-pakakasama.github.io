@@ -9,11 +9,25 @@ html {
     scroll-behavior: smooth;
 }
 
+/*
+ * Base typography and colours
+ *
+ * The original prototype used a system sans–serif stack with a modern
+ * gradient hero.  The WordPress screenshots provided by the user have
+ * a much more classic feel with large, serif headings and a muted
+ * pastel colour palette.  To mirror that look and feel we switch to
+ * a serif font stack and adjust the foreground and background colours
+ * accordingly.  Georgia and Times New Roman are widely available
+ * system fonts, so they are specified here with a generic serif
+ * fallback.  Colours are chosen based off sampled pixel values from
+ * the screenshots – see the analysis for details.  The line‑height is
+ * kept at 1.6 for comfortable reading.
+ */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: Georgia, "Times New Roman", Times, serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f8fafc;
+    color: #0c0c0d;
+    background-color: #f2f5f5;
 }
 
 /* Container */
@@ -24,15 +38,23 @@ body {
 }
 
 /* Header and Navigation */
+/*
+ * Header
+ *
+ * In the new design the header sits seamlessly on top of the hero
+ * section rather than appearing as a translucent white bar.  To
+ * achieve this we set its background to match the hero colour and
+ * remove the blur and border.  The header remains fixed so that
+ * navigation stays visible when scrolling.
+ */
 .header {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: #9bb3b9;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: none;
 }
 
 .nav {
@@ -44,10 +66,12 @@ body {
     margin: 0 auto;
 }
 
+/* Brand styling – larger serif heading to mirror the WordPress template */
 .nav-brand h1 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #1e293b;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0c0c0d;
+    font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .nav-menu {
@@ -56,28 +80,24 @@ body {
     gap: 2rem;
 }
 
+/* Navigation links: dark text with subtle hover feedback */
 .nav-link {
     text-decoration: none;
-    color: #64748b;
+    color: #0c0c0d;
     font-weight: 500;
     transition: color 0.3s ease;
     position: relative;
 }
 
+/* Hover and active states lighten slightly to denote interaction */
 .nav-link:hover,
 .nav-link.active {
-    color: #0f172a;
+    color: #2d3436;
 }
 
+/* Underline removed for a cleaner look in the new design */
 .nav-link.active::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: #3b82f6;
-    border-radius: 1px;
+    content: none;
 }
 
 /* Main Content */
@@ -86,23 +106,38 @@ body {
 }
 
 /* Hero Section */
+/*
+ * Hero Section
+ *
+ * The WordPress reference uses a muted blue–grey background with
+ * contrasting dark typography.  Gradients and overlays have been
+ * removed for a flatter aesthetic.  Padding and alignment remain
+ * unchanged to preserve layout rhythm.
+ */
 .hero {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 8rem 0;
+    background: #9bb3b9;
+    color: #0c0c0d;
+    /*
+     * Set a minimum height based on the viewport to achieve a
+     * proportional dark/light split similar to the reference.  At
+     * approximately 65% of the viewport height, the darker hero
+     * section will occupy the majority of the first screen, while
+     * allowing the lighter section below to be visible without
+     * scrolling.  Flexbox is used to vertically center the content.
+     */
+    min-height: 65vh;
+    padding: 4rem 0;
     text-align: center;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
+/* Remove the dark overlay so the pastel hero colour is visible */
 .hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.2);
+    content: none;
 }
 
 .hero-content {
@@ -113,45 +148,58 @@ body {
     padding: 0 2rem;
 }
 
+/* Hero heading styled with a classic serif font */
 .hero-title {
     font-size: 4rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
     line-height: 1.1;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #0c0c0d;
 }
 
+/* Hero description uses smaller serif font and dark colour */
 .hero-description {
     font-size: 1.25rem;
     margin-bottom: 2.5rem;
-    opacity: 0.9;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #2d3436;
 }
 
+/* Primary call‑to‑action button
+ * Matches the black pill‑shaped button seen in the screenshots.
+ */
 .hero-button {
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    padding: 1rem 2rem;
+    background: #0c0c0d;
+    border: none;
+    color: #ffffff;
+    padding: 0.8rem 2rem;
     font-size: 1.1rem;
     font-weight: 600;
-    border-radius: 50px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .hero-button:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border-color: rgba(255, 255, 255, 0.5);
+    background: #2d3436;
     transform: translateY(-2px);
 }
 
 /* Data Engineering Section */
+/*
+ * Data engineering section
+ *
+ * Use a pale mint/blue background to echo the second screenshot.  This
+ * helps break up the page into distinct bands while maintaining a
+ * cohesive palette.  Text is dark for good contrast.
+ */
 .data-engineering {
     padding: 6rem 0;
-    background: white;
+    background: #d5e4e4;
 }
 
 .content-grid {
@@ -161,18 +209,22 @@ body {
     align-items: center;
 }
 
+/* Heading styling for sub‑sections – larger serif font */
 .text-content h2 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #1e293b;
     margin-bottom: 1.5rem;
     line-height: 1.2;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #0c0c0d;
 }
 
+/* Paragraph styling with dark tone */
 .text-content p {
     font-size: 1.1rem;
-    color: #64748b;
     line-height: 1.7;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #2d3436;
 }
 
 .visual-content {
@@ -209,30 +261,35 @@ body {
 }
 
 /* Page Hero */
+/* Page hero inherits the same pastel palette as the data engineering section */
 .page-hero {
-    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    background: #d5e4e4;
     padding: 6rem 0 4rem;
     text-align: center;
 }
 
+/* Page titles styled with serif font */
 .page-title {
     font-size: 3rem;
     font-weight: 700;
-    color: #1e293b;
     margin-bottom: 1rem;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #0c0c0d;
 }
 
+/* Subtitles with darker serif type */
 .page-subtitle {
     font-size: 1.25rem;
-    color: #64748b;
     max-width: 600px;
     margin: 0 auto;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #2d3436;
 }
 
 /* Services Grid */
 .services {
     padding: 6rem 0;
-    background: white;
+    background: #f2f5f5;
 }
 
 .services-grid {
@@ -273,19 +330,21 @@ body {
 .service-card h3 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #1e293b;
     margin-bottom: 1rem;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #0c0c0d;
 }
 
 .service-card p {
-    color: #64748b;
+    color: #2d3436;
     line-height: 1.6;
+    font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 /* About Content */
 .about-content {
     padding: 6rem 0;
-    background: white;
+    background: #f2f5f5;
 }
 
 .about-grid {
@@ -298,22 +357,25 @@ body {
 .about-text h2 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #1e293b;
     margin-bottom: 1.5rem;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #0c0c0d;
 }
 
 .about-text h3 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #1e293b;
     margin: 2rem 0 1rem;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #0c0c0d;
 }
 
 .about-text p {
     font-size: 1.1rem;
-    color: #64748b;
     line-height: 1.7;
     margin-bottom: 1.5rem;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #2d3436;
 }
 
 .expertise-list {
@@ -323,16 +385,17 @@ body {
 
 .expertise-list li {
     padding: 0.5rem 0;
-    color: #64748b;
     position: relative;
     padding-left: 1.5rem;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #2d3436;
 }
 
 .expertise-list li::before {
     content: '✓';
     position: absolute;
     left: 0;
-    color: #3b82f6;
+    color: #0c0c0d;
     font-weight: bold;
 }
 
@@ -363,20 +426,21 @@ body {
     display: block;
     font-size: 2rem;
     font-weight: 700;
-    color: #3b82f6;
+    color: #0c0c0d;
 }
 
 .stat-label {
     font-size: 0.9rem;
-    color: #64748b;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #2d3436;
 }
 
 /* Philosophy Section */
 .philosophy {
     padding: 4rem 0;
-    background: #f8fafc;
+    background: #f2f5f5;
 }
 
 .philosophy-content {
@@ -388,17 +452,19 @@ body {
 .philosophy h2 {
     font-size: 2rem;
     font-weight: 600;
-    color: #1e293b;
     margin-bottom: 2rem;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #0c0c0d;
 }
 
 blockquote {
     font-size: 1.25rem;
     font-style: italic;
-    color: #475569;
     line-height: 1.6;
     position: relative;
     padding: 0 2rem;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #2d3436;
 }
 
 blockquote::before,
@@ -421,7 +487,7 @@ blockquote::after {
 /* Insights Grid */
 .insights-content {
     padding: 6rem 0;
-    background: white;
+    background: #f2f5f5;
 }
 
 .insights-grid {
@@ -467,27 +533,30 @@ blockquote::after {
 .insight-content h3 {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #1e293b;
     margin-bottom: 0.75rem;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #0c0c0d;
 }
 
 .insight-excerpt {
-    color: #64748b;
     line-height: 1.6;
     margin-bottom: 1rem;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #2d3436;
 }
 
 .insight-date {
     font-size: 0.875rem;
-    color: #94a3b8;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #6e7a83;
 }
 
 /* Newsletter Signup */
 .newsletter-signup {
     padding: 4rem 0;
-    background: #f8fafc;
+    background: #f2f5f5;
 }
 
 .newsletter-content {
@@ -499,13 +568,15 @@ blockquote::after {
 .newsletter-content h2 {
     font-size: 2rem;
     font-weight: 600;
-    color: #1e293b;
     margin-bottom: 1rem;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #0c0c0d;
 }
 
 .newsletter-content p {
-    color: #64748b;
     margin-bottom: 2rem;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #2d3436;
 }
 
 .newsletter-form {
@@ -547,8 +618,8 @@ blockquote::after {
 /* CTA Section */
 .consultation-cta {
     padding: 6rem 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: #9bb3b9;
+    color: #0c0c0d;
     text-align: center;
 }
 
@@ -556,39 +627,40 @@ blockquote::after {
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
+    font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .cta-content p {
     font-size: 1.25rem;
     margin-bottom: 2rem;
-    opacity: 0.9;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #2d3436;
 }
 
 .cta-button {
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    padding: 1rem 2rem;
+    background: #0c0c0d;
+    border: none;
+    color: #ffffff;
+    padding: 0.8rem 2rem;
     font-size: 1.1rem;
     font-weight: 600;
-    border-radius: 50px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .cta-button:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border-color: rgba(255, 255, 255, 0.5);
+    background: #2d3436;
     transform: translateY(-2px);
 }
 
 /* Footer */
 .footer {
-    background: #1e293b;
-    color: #94a3b8;
+    background: #2d3436;
+    color: #bdc3c7;
     padding: 2rem 0;
     text-align: center;
+    font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 /* Responsive Design */
@@ -690,78 +762,4 @@ input:focus,
     outline: 2px solid #3b82f6;
     outline-offset: 2px;
 }
-
-
-/* ==== Design Tokens & Overrides (appended) ==== */
-:root{
-  --brand-dark: #9BB3B9;     /* hero bg (blue-grey) */
-  --brand-light: #D5E4E4;    /* light sections */
-  --ink-900:   #0C0C0D;      /* headings, buttons */
-  --ink-700:   #2D3436;      /* strong body */
-  --ink-600:   #3A4143;      /* default body */
-
-  --accent-600:#0F4C5C;      /* links, hovers, active nav */
-  --accent-500:#1C697A;
-  --accent-100:#E4F2F4;
-
-  --surface-0:#FFFFFF;
-  --surface-1:#F2F5F5;
-
-  --shadow-sm: 0 2px 8px rgba(0,0,0,.06);
-  --shadow-md: 0 10px 25px rgba(0,0,0,.10);
-
-  --r-md:14px;
-}
-
-/* Base type */
-body{
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif !important;
-  font-size: 18px;
-  line-height: 1.65;
-  color: var(--ink-600);
-  background: var(--surface-1);
-}
-h1,h2,h3{
-  font-family: "Playfair Display", Georgia, "Times New Roman", Times, serif;
-  color: var(--ink-900);
-  line-height: 1.15;
-}
-/* Hero */
-.hero{
-  background: var(--brand-dark) !important;
-  color: var(--ink-900) !important;
-  min-height: 65vh !important;
-  display:flex; align-items:center; justify-content:center;
-  text-align:center;
-}
-.hero-title{ font-size: clamp(40px, 6vw, 64px); }
-.hero-description{ max-width: 640px; color: var(--ink-600); margin-left:auto; margin-right:auto; }
-/* CTA button */
-.hero-button,.cta-button{
-  background: var(--ink-900) !important;
-  color: #fff !important;
-  border: none !important;
-  padding: 14px 22px; border-radius: 999px;
-  font-weight: 600;
-  box-shadow: var(--shadow-sm);
-}
-.hero-button:hover,.cta-button:hover{ filter: brightness(1.08); transform: translateY(-1px); }
-.hero-button:focus-visible,.cta-button:focus-visible{ outline: 3px solid var(--accent-100); outline-offset: 2px; }
-/* Light band */
-.data-engineering,.services,.about-content,.insights-content,.newsletter-signup,.philosophy{
-  background: var(--brand-light) !important;
-}
-/* Links */
-a{ color: var(--accent-600); text-underline-offset: 3px; }
-a:hover{ color: var(--accent-500); }
-/* Footer */
-.footer{ background:#2D3436 !important; color:#C8D0D2 !important; }
-/* Cards & images */
-.data-image,.workflow-image,.dashboard-image{ border-radius: var(--r-md); box-shadow: var(--shadow-md); }
-/* Nav */
-.nav-link{ color: var(--ink-700) !important; }
-.nav-link:hover{ color: var(--accent-600) !important; }
-.nav-link.active::after{ background: var(--accent-600) !important; }
-/* List ticks */
-.expertise-list li::before{ color: var(--accent-600) !important; }
 
