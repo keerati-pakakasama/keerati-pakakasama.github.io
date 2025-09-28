@@ -84,5 +84,5 @@ The website is optimized for performance with:
 
 ## License
 
-This portfolio template is provided as-is for personal and commercial use.
+All rights reserved by Keerati Pakakasama @ 2025
 
